@@ -6,6 +6,8 @@ import kafeinTechnology.GFTour.Entities.Models.TourWithCityNamesOnRoute;
 import kafeinTechnology.GFTour.Entities.Tour;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
@@ -47,7 +49,6 @@ public class HibernateTourDal implements ITourDal {
             );
         }
         return tourWithCityNamesOnRoutes;
-
     }
 
     @Override
@@ -89,27 +90,81 @@ public class HibernateTourDal implements ITourDal {
 
     @Override
     @Transactional
-    public void add(Tour tour) {
-        Session session = entityManager.unwrap(Session.class);
-        Guide guide = session.get(Guide.class, tour.getGuide().getId());
-        if(guide == null){
-            session.save(tour.getGuide());
+    public ResponseEntity add(Tour tour) {
+        try {
+            Session session = entityManager.unwrap(Session.class);
+            List<City> cities = session.createQuery("from City").getResultList();
+            String[] route = tour.getRoute().trim().split(",");
+            try{
+                for (String city : route){
+                    cities.get(Integer.parseInt(city));
+                }
+            }
+            catch (Exception ex){
+                return new ResponseEntity("Route Values Must Exist in the City Table. Please Check from City Controller", HttpStatus.BAD_REQUEST);
+            }
+            Guide guide = session.get(Guide.class, tour.getGuide().getId());
+            if(guide == null){
+                if(tour.getGuide().getName() == null || tour.getGuide().getGender() == null || tour.getGuide().getSurname() == null){
+                    return new ResponseEntity("All Guide Information Required", HttpStatus.BAD_REQUEST);
+                }
+                else if(tour.getGuide().getExperience() < 0){
+                    return new ResponseEntity("Experience must be equal or bigger than zero", HttpStatus.BAD_REQUEST);
+                }
+                else if(!tour.getGuide().getGender().matches("^[Ee][Rr][Kk][Ee][Kk]|[Kk][Aa][Dd][Iı][Nn]$")){
+                    return new ResponseEntity("Guide gender can only include these values -> Erkek|Kadın", HttpStatus.BAD_REQUEST);
+                }
+                session.save(tour.getGuide());
+            }
+            session.save(tour);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception ex){
+            System.out.println(ex);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-        session.save(tour);
     }
 
     @Override
     @Transactional
-    public void update(Tour tour) {
-        Session session = entityManager.unwrap(Session.class);
-        session.saveOrUpdate(tour);
+    public ResponseEntity update(Tour tour) {
+        try {
+            Session session = entityManager.unwrap(Session.class);
+            List<City> cities = session.createQuery("from City").getResultList();
+            String[] route = tour.getRoute().trim().split(",");
+            try{
+                for (String city : route){
+                    cities.get(Integer.parseInt(city));
+                }
+            }
+            catch (Exception ex){
+                return new ResponseEntity("Route Values Must Exist in the City Table. Please Check from City Controller", HttpStatus.BAD_REQUEST);
+            }
+            Guide guide = session.get(Guide.class, tour.getGuide().getId());
+            if(guide == null){
+                if(tour.getGuide().getName() == null || tour.getGuide().getGender() == null || tour.getGuide().getSurname() == null){
+                    return new ResponseEntity("All Guide Information Required", HttpStatus.BAD_REQUEST);
+                }
+                else if(tour.getGuide().getExperience() < 0){
+                    return new ResponseEntity("Experience must be equal or bigger than zero", HttpStatus.BAD_REQUEST);
+                }
+                else if(!tour.getGuide().getGender().matches("^[Ee][Rr][Kk][Ee][Kk]|[Kk][Aa][Dd][Iı][Nn]$")){
+                    return new ResponseEntity("Guide gender can only include these values -> Erkek|Kadın", HttpStatus.BAD_REQUEST);
+                }
+                session.save(tour.getGuide());
+            }
+            session.saveOrUpdate(tour);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception ex){
+            System.out.println(ex);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override
     @Transactional
-    public void delete(Tour tour) {
+    public void delete(int id) {
         Session session = entityManager.unwrap(Session.class);
-        Tour tourForDelete = session.get(Tour.class, tour.getId());
+        Tour tourForDelete = session.get(Tour.class, id);
         session.delete(tourForDelete);
     }
 }

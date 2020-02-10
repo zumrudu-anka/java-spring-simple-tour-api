@@ -1,5 +1,7 @@
 package kafeinTechnology.GFTour.Entities;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,21 +12,22 @@ public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @ApiModelProperty(value = "auto generated")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "route")
+    @Column(name = "route", nullable = false)
     private String route;   /// I seperate to city id numbers with comma that in this route ( like this ->>> 4, 9, 1,... )
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "guideId")
+    @JoinColumn(name = "guideId", nullable = false)
     private Guide guide;
 
     public Tour() {

@@ -4,6 +4,8 @@ import kafeinTechnology.GFTour.DataAccess.IGuideDal;
 import kafeinTechnology.GFTour.Entities.Guide;
 import kafeinTechnology.GFTour.Entities.Models.GuideWithTours;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,20 +35,34 @@ public class GuideManager implements IGuideService {
 
     @Override
     @Transactional
-    public void add(Guide guide) {
+    public ResponseEntity add(Guide guide) {
+        if(!guide.getGender().matches("^[Ee][Rr][Kk][Ee][Kk]|[Kk][Aa][Dd][Iı][Nn]$")){
+            return new ResponseEntity("Gender can only include these values -> Erkek|Kadın", HttpStatus.BAD_REQUEST);
+        }
+        else if(guide.getExperience() < 0){
+            return new ResponseEntity("Experience must be equal or bigger than zero", HttpStatus.BAD_REQUEST);
+        }
         guideDal.add(guide);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @Override
     @Transactional
-    public void update(Guide guide) {
+    public ResponseEntity update(Guide guide) {
+        if(!guide.getGender().matches("^[Ee][Rr][Kk][Ee][Kk]|[Kk][Aa][Dd][Iı][Nn]$")){
+            return new ResponseEntity("Gender can only include these values -> Erkek|Kadın", HttpStatus.BAD_REQUEST);
+        }
+        else if(guide.getExperience() < 0){
+            return new ResponseEntity("Experience must be equal or bigger than zero", HttpStatus.BAD_REQUEST);
+        }
         guideDal.update(guide);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @Override
     @Transactional
-    public void delete(Guide guide) {
-        guideDal.delete(guide);
+    public void delete(int id) {
+        guideDal.delete(id);
     }
 
     @Transactional

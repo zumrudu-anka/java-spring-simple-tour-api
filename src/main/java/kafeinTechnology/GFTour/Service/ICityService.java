@@ -9,5 +9,5 @@ public interface ICityService {
     City get(int id);
     void add(City city);
     void update(City city);
-    void delete(City city);
+    void delete(int id);
 }

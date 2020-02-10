@@ -11,5 +11,5 @@ public interface IGuideDal {
     GuideWithTours getGuideWithTours(int id);
     void add(Guide guide);
     void update(Guide guide);
-    void delete(Guide guide);
+    void delete(int id);
 }

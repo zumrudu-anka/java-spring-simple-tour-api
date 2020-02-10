@@ -4,6 +4,8 @@ import kafeinTechnology.GFTour.DataAccess.ITourDal;
 import kafeinTechnology.GFTour.Entities.Models.TourWithCityNamesOnRoute;
 import kafeinTechnology.GFTour.Entities.Tour;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,19 +35,37 @@ public class TourManager implements ITourService {
 
     @Override
     @Transactional
-    public void add(Tour tour) {
-        tourDal.add(tour);
+    public ResponseEntity add(Tour tour) {
+        try{
+            String[] arrayForTryRouteSplitAndParseInt = tour.getRoute().trim().split(",");
+            for (String route : arrayForTryRouteSplitAndParseInt){
+                Integer.parseInt(route);
+            }
+            return tourDal.add(tour);
+        }catch (Exception ex){
+            System.out.println(ex);
+            return new ResponseEntity("Route Must Include City Ids Which Seperated By Comma", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override
     @Transactional
-    public void update(Tour tour) {
-        tourDal.update(tour);
+    public ResponseEntity update(Tour tour) {
+        try{
+            String[] arrayForTryRouteSplitAndParseInt = tour.getRoute().trim().split(",");
+            for (String route : arrayForTryRouteSplitAndParseInt){
+                Integer.parseInt(route);
+            }
+            return tourDal.update(tour);
+        }catch (Exception ex){
+            System.out.println(ex);
+            return new ResponseEntity("Route Must Include City Ids Which Seperated By Comma", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override
     @Transactional
-    public void delete(Tour tour) {
-        tourDal.delete(tour);
+    public void delete(int id) {
+        tourDal.delete(id);
     }
 }

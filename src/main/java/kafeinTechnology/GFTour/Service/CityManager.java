@@ -44,7 +44,7 @@ public class CityManager implements ICityService {
 
     @Override
     @Transactional
-    public void delete(City city) {
-        cityDal.delete(city);
+    public void delete(int id) {
+        cityDal.delete(id);
     }
 }

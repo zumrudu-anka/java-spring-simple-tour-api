@@ -7,16 +7,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "City")
-@ApiModel(value = "City Object Model")
+@ApiModel
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @ApiModelProperty(value = "Id of the City Model")
+    @ApiModelProperty(value = "auto generated")
     private int id;
 
-    @Column(name = "name")
-    @ApiModelProperty(value = "Name of the City Model")
+    @Column(name = "name", nullable = false)
+    @ApiModelProperty(required = true)
     private String name;
 
     public City() {

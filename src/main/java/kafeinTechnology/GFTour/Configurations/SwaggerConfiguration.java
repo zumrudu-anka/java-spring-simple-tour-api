@@ -23,8 +23,8 @@ public class SwaggerConfiguration {
     }
 
     private ApiInfo apiEndPointsInfo(){
-        return new ApiInfoBuilder().title("Spring Boot Swagger Example")
-                .description("Kafein Tech Homework Documentation")
+        return new ApiInfoBuilder().title("Kafein Technology Homework")
+                .description("<h3>Simple Tour Api Documentation</h3>")
                 .contact(new Contact("Zumrudu Anka","","osmandurdag@hotmail.com"))
                 .license("Apache 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0.html")

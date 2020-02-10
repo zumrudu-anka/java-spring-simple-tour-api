@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cities")
-@Api(value = "City Controller")
+@Api(tags={"City Controller"})
 public class CityController {
 
     private ICityService cityService;
@@ -23,33 +23,59 @@ public class CityController {
     }
 
     @GetMapping("")
-    @ApiOperation(value = "Get All Cities", notes = "This Method Return All Cities in Database")
+    @ApiOperation(value = "Get All Cities", notes = "<strong>This Method Return All Cities in Database</strong><br>" +
+                                                    "<ol>" +
+                                                    "<li> Click the Try it out button.</li>" +
+                                                    "<li> Click the Execute button.</li>" +
+                                                    "</ol>")
     public List<City> getAll(){
         return this.cityService.getAll();
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Get City By Id", notes = "This Method Return City By Id")
+    @ApiOperation(value = "Get City By Id", notes = "<strong>This Method Return City By Id</strong><br>" +
+                                                    "<ol>" +
+                                                    "<li>Click the Try it out button.</li>" +
+                                                    "<li>Write the id number of the city which you want.</li>" +
+                                                    "<li>Click the Execute button.</li>" +
+                                                    "</ol>")
     public City get(@PathVariable int id){
         return this.cityService.get(id);
     }
 
     @PostMapping("/add")
-    @ApiOperation(value = "Add New City", notes = "This is City Add Method in City Controller")
+    @ApiOperation(value = "Add New City", notes = "<strong>This is City Add Method in City Controller</strong><br>" +
+                                                  "<ol>" +
+                                                  "<li> Click the Try it out button.</li>" +
+                                                  "<li> Write the city id and city name into the text area like this example which you see.</li>" +
+                                                  "<li> Click the Execute button.</li>" +
+                                                  "</ol>" +
+                                                  "<strong>Note: </strong>Id is auto generated value for this object, so it is optional.")
     public void add(@RequestBody @ApiParam(value = "City") City city){
         this.cityService.add(city);
     }
 
     @PostMapping("/update")
-    @ApiOperation(value = "Update The City", notes = "This is City Update Method in City Controller")
+    @ApiOperation(value = "Update The City", notes = "<strong>This is City Update Method in City Controller</strong><br>" +
+                                                     "<ol>" +
+                                                     "<li> Click the Try it out button.</li>" +
+                                                     "<li> Write the city id and city name into the text area like this example which you see.</li>" +
+                                                     "<li> Click the Execute button.</li>" +
+                                                     "</ol>" +
+                                                     "<strong>Note: </strong>If you don't write id, this method will create a new city.")
     public void update(@RequestBody @ApiParam(value = "City") City city){
         this.cityService.update(city);
     }
 
-    @PostMapping("/delete")
-    @ApiOperation(value = "Delete The City", notes = "This is City Delete Method in City Controller")
-    public void delete(@RequestBody @ApiParam(value = "City") City city){
-        this.cityService.delete(city);
+    @DeleteMapping("/delete")
+    @ApiOperation(value = "Delete The City", notes = "<strong>This is City Delete Method in City Controller</strong><br>" +
+                                                     "<ol>" +
+                                                     "<li>Click the Try it out button.</li>" +
+                                                     "<li>Write the id of the City which you want delete into the text area.</li>" +
+                                                     "<li>Click the Execute button.</li>" +
+                                                     "</ol>")
+    public void delete(@RequestBody @ApiParam(value = "City Id") int id){
+        this.cityService.delete(id);
     }
 
 }

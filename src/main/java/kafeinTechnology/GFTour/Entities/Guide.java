@@ -1,5 +1,7 @@
 package kafeinTechnology.GFTour.Entities;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,19 +11,24 @@ public class Guide {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @ApiModelProperty(value = "auto generated")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
+    @ApiModelProperty(required = true)
     private String name;
 
-    @Column(name = "surname")
+    @Column(name = "surname", nullable = false)
+    @ApiModelProperty(required = true)
     private String surname;
 
-    @Column(name = "experience")
+    @Column(name = "experience", nullable = false)
+    @ApiModelProperty(notes = "Must be equal or bigger than zero")
     private int experience;
 
-    @Column(name = "gender")
-    private byte gender; // 0 -> Man  ---- 1 -> Woman
+    @Column(name = "gender", nullable = false)
+    @ApiModelProperty(required = true, notes = "Can only include these values -> Erkek|Kadın")
+    private String gender;
 
     @OneToMany(mappedBy = "guide", cascade = CascadeType.REMOVE)
     private List<Tour> tours;
@@ -29,7 +36,7 @@ public class Guide {
     public Guide() {
     }
 
-    public Guide(int id, String name, String surname, int experience, byte gender) {
+    public Guide(int id, String name, String surname, int experience, String gender) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -69,11 +76,11 @@ public class Guide {
         this.experience = experience;
     }
 
-    public byte getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(byte gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 }
