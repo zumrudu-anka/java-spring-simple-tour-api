@@ -11,5 +11,5 @@
   <li>You can see <a href="http://localhost:8080/swagger-ui.html">Open API Documentation</a> which created with using swagger while the application is runnning.<br>
 	You can try API methods by swagger-ui or use Postman
   </li>
-  <li>You can connect <a href = "http://localhost:8080/h2-console">H2 Database</a>(In Memory Database) with <code>username = kafeinTech</code> and <code>password = 12345</code></li>
+  <li>You can connect <a href = "http://localhost:8080/h2-console">H2 Database</a>(In Memory Database) with <code>username = kafeinTech</code> and <code>password = 12345</code> while the project is running.</li>
 </ul>
