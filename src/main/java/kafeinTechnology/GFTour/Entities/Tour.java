@@ -16,18 +16,24 @@ public class Tour {
     private int id;
 
     @Column(name = "name", nullable = false)
+    @ApiModelProperty(required = true)
     private String name;
 
     @Column(name = "date", nullable = false)
+    @ApiModelProperty(required = true)
     private Date date;
 
     @Column(name = "price", nullable = false)
+    @ApiModelProperty(required = true)
     private BigDecimal price;
 
     @Column(name = "route", nullable = false)
+    @ApiModelProperty(required = true)
     private String route;   /// I seperate to city id numbers with comma that in this route ( like this ->>> 4, 9, 1,... )
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "guideId", nullable = false)
+    @ApiModelProperty(required = true)
     private Guide guide;
 
     public Tour() {
