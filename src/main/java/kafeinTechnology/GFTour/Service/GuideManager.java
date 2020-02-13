@@ -15,10 +15,11 @@ import java.util.List;
 public class GuideManager implements IGuideService {
 
     private IGuideDal guideDal;
+    private ICheckService checkService;
 
-    @Autowired
     public GuideManager(IGuideDal guideDal){
         this.guideDal = guideDal;
+        this.checkService = new CheckManager();
     }
 
     @Override
@@ -36,7 +37,7 @@ public class GuideManager implements IGuideService {
     @Override
     @Transactional
     public ResponseEntity add(Guide guide) {
-        if(!guide.getGender().matches("^[Ee][Rr][Kk][Ee][Kk]|[Kk][Aa][Dd][Iı][Nn]$")){
+        if(!checkService.guideGenderValidity(guide)){
             return new ResponseEntity("Gender can only include these values -> Erkek|Kadın", HttpStatus.BAD_REQUEST);
         }
         else if(guide.getExperience() < 0){
@@ -49,7 +50,7 @@ public class GuideManager implements IGuideService {
     @Override
     @Transactional
     public ResponseEntity update(Guide guide) {
-        if(!guide.getGender().matches("^[Ee][Rr][Kk][Ee][Kk]|[Kk][Aa][Dd][Iı][Nn]$")){
+        if(!checkService.guideGenderValidity(guide)){
             return new ResponseEntity("Gender can only include these values -> Erkek|Kadın", HttpStatus.BAD_REQUEST);
         }
         else if(guide.getExperience() < 0){

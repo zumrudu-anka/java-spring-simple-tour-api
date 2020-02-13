@@ -27,6 +27,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             .and().formLogin()//enable form login instead of basic login
             .and().csrf().ignoringAntMatchers(CSRFIGNORINGURLS)//don't apply CSRF protection to /h2-console
             .and().headers().frameOptions().sameOrigin();//allow use of frame to same origin urls
-    }
+        }
 
 }
