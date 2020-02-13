@@ -1,6 +1,6 @@
 <h3>Simple Tour Api</h3>
 
-<h4>Created With Using Maven - Spring Boot - H2 Database - Hibernate - Swagger</h4>
+<h4>Created With Using Maven - Spring Boot - H2 Database - Hibernate - Swagger - (Spring Security(Not Completed))</h4>
 
 <h5>Usage</h5>
 
@@ -15,7 +15,7 @@
 	  &#x27A5 Or you can easily run the package of the project in the terminal with java.<br> Open the Terminal and go to directory which name is target where in the project directory. <br> Enter the <code>java -jar GFTour-0.0.1-SNAPSHOT.jar</code> command on the terminal.
 	</li>
 	<li><h6>Try & Test</h6>
-	<b>For Login</b> : <code>username = anka</code> - <code>password = 12345</code><br>
+	&#x27A5 <i>For Login</i> : <code>username = anka</code> , <code>password = 12345</code><br>
 
   You can see <a href="http://localhost:8080/swagger-ui.html">Open API Documentation</a> which created with using swagger while the application is runnning.<br>
 	You can try API methods by swagger-ui or use Postman
