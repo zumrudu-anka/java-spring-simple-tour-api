@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kafeinTechnology.GFTour.Entities.Models.TourWithCityNamesOnRoute;
 import kafeinTechnology.GFTour.Entities.Tour;
-import kafeinTechnology.GFTour.Service.ITourService;
+import kafeinTechnology.GFTour.Services.ITourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
